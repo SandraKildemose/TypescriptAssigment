@@ -24,10 +24,11 @@ import { Student, Enrolment, students, courses, enrolments } from './data.js';
  */
 export function gradeReport(studentId: string): string {
   const studentenrolment = enrolments.filter(e => e.studentId === studentId); { //laver en konstant hvor enrolments er filtreret
-    if (studentenrolment.length === 0)return ""; } //Returnerer en tom txt, skulle man bruge console.log og ikke return?
+    if (studentenrolment.length === 0)return "";
+    if ( => e.grade === null) { console.log ("Not awarded")} //er i tvivl med denne?? Skal den returnere eller skal den printes?
+
     studentenrolment.map (e => courses.find (c => c.courseId === e.courseId)); //Anomym funktion, to paranteser, fordi der to funktioner, kalder en funktion i en funktion.
-
-
+}
 }
 
 
