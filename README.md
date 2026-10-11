@@ -1,5 +1,5 @@
 # TypescriptAssigment
 Group31:
-Sigurd Arnsdof Dam
+Sigurd Arnsdorf Dam
 Christian Tobias Rasmussen
 Sandra Kildemose Jørgensen 
