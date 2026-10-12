@@ -37,7 +37,7 @@ export function gradeReport(studentId: string): string {
 
       return result.join("\n");
     }
-
+  }
 
 // --- A2. Averaging --------------------------------------------------------
 
@@ -77,11 +77,9 @@ export function awaitingGrades(): string[] {
   const student = students.find(s=> s.id === e.studentId)
   return student?.name; //spørgsmåltegn er hvis den studerende ikke fidnes, så kommer der ikke fejl.
   });
-  const filteredNames = studentName.filter(s => s !== undefined);
-  const uniqueNames = [...new Set(filteredNames)]; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
+  const Nameswithfilter = studentName.filter(s => s !== undefined);
+  const uniqueNames = [...new Set(Nameswithfilter)]; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
   return uniqueNames.sort(); //fået hjælp af AI her i denne linje, og ikke ændret svaret.
-
-
   }
 
 
