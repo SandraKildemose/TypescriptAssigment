@@ -52,8 +52,24 @@ export function gradeReport(studentId: string): string {
  *     averageGrade('00128')   // 11  (12 and 10)
  */
 export function averageGrade(studentId: string): number {
+  const gradedEnrolments = enrolments.filter(
+    enrolment => enrolment.studentId === studentId && enrolment.grade !== null
 
-  throw new Error('not implemented');
+  );
+
+  if (gradedEnrolments.length === 0){
+    return 0;
+  }
+
+  const total = gradedEnrolments.reduce(
+      (sum, enrolment) => sum + Number(enrolment.grade),
+      0
+  );
+
+  const average = total / gradedEnrolments.length;
+
+  return Math.round(average * 10) / 10;
+
 }
 
 // --- A3. Who is missing a grade ------------------------------------------
@@ -63,8 +79,20 @@ export function averageGrade(studentId: string): number {
  * sorted alphabetically and without repeats.
  */
 export function awaitingGrades(): string[] {
-  // TODO
-  throw new Error('not implemented');
+  const ungradedEnrolment = enrolments.filter(
+      enrolment => enrolment.grade === null
+  );
+
+  const studentNames = ungradedEnrolment.map(enrolment => {
+    const student = students.find( e => e.id === enrolment.studentId)
+    return student ? student.name : '';
+  });
+
+  const validNames = studentNames.filter(name => name !== '');
+
+  const uniqueNames = [...new Set(validNames)]
+
+  return uniqueNames.sort((a, b) => a.localeCompare(b));
 }
 
 // --- A4. A family of formatters ------------------------------------------
