@@ -25,10 +25,17 @@ import { Student, Enrolment, students, courses, enrolments } from './data.js';
 export function gradeReport(studentId: string): string {
   const studentenrolment = enrolments.filter(e => e.studentId === studentId); { //laver en konstant hvor enrolments er filtreret
     if (studentenrolment.length === 0)return "";
-    if ( => e.grade === null) { console.log ("Not awarded")} //er i tvivl med denne?? Skal den returnere eller skal den printes?
 
-    studentenrolment.map (e => courses.find (c => c.courseId === e.courseId)); //Anomym funktion, to paranteser, fordi der to funktioner, kalder en funktion i en funktion.
-}
+    const result = studentenrolment.map (e => {
+    const course = courses.find (c => c.courseId === e.courseId);
+    if (!course) {return "";}
+    if (e.grade === null)
+    return `${e.courseId} ${course.title}: not awarded`;
+    else{ return `${e.courseId} ${course.title}: ${e.grade}`
+      }
+    });
+
+      return result.join("\n");
 }
 
 
