@@ -36,7 +36,7 @@ export function gradeReport(studentId: string): string {
     });
 
       return result.join("\n");
-}
+    }
 
 
 // --- A2. Averaging --------------------------------------------------------
@@ -52,8 +52,17 @@ export function gradeReport(studentId: string): string {
  *     averageGrade('00128')   // 11  (12 and 10)
  */
 export function averageGrade(studentId: string): number {
-  // TODO
-  throw new Error('not implemented');
+    const studentenrolment = enrolments.filter(e => e.studentId === studentId);
+    if (studentenrolment.length === 0)
+        return 0;
+
+    const graded = studentenrolment.filter(g => g.grade !== null);
+    const result = graded.map(g => Number(g.grade));
+    const sum = result.reduce((sum, grade) => sum + grade, 0);
+
+    if (result.length === 0) return 0;
+    const average = sum / result.length;
+    return Math.round(average * 10) / 10; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
 }
 
 // --- A3. Who is missing a grade ------------------------------------------
@@ -63,8 +72,7 @@ export function averageGrade(studentId: string): number {
  * sorted alphabetically and without repeats.
  */
 export function awaitingGrades(): string[] {
-  // TODO
-  throw new Error('not implemented');
+
 }
 
 // --- A4. A family of formatters ------------------------------------------
