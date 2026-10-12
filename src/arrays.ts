@@ -23,15 +23,22 @@ import { Student, Enrolment, students, courses, enrolments } from './data.js';
  * join (joiner). No for loops in this file.
  */
 export function gradeReport(studentId: string): string {
-  const studentenrolment = enrolments.filter(e => e.studentId === studentId); { //laver en konstant hvor enrolments er filtreret
-    if (studentenrolment.length === 0)return "";
-    if ( => e.grade === null) { console.log ("Not awarded")} //er i tvivl med denne?? Skal den returnere eller skal den printes?
+  const studentEnrolments = enrolments.filter(
+      e => e.studentId === studentId
+  );
 
-    studentenrolment.map (e => courses.find (c => c.courseId === e.courseId)); //Anomym funktion, to paranteser, fordi der to funktioner, kalder en funktion i en funktion.
+  const lines = studentEnrolments.map(enrolment => {
+    const course = courses.find(c => c.courseId === enrolment.courseId);
+
+    const gradeText = enrolment.grade !== null
+        ? enrolment.grade
+        : "not awarded";
+
+    return `${enrolment.courseId} ${course?.title}: ${gradeText}`;
+  });
+
+  return lines.join('\n');
 }
-}
-
-
 // --- A2. Averaging --------------------------------------------------------
 
 /**
@@ -45,7 +52,7 @@ export function gradeReport(studentId: string): string {
  *     averageGrade('00128')   // 11  (12 and 10)
  */
 export function averageGrade(studentId: string): number {
-  // TODO
+
   throw new Error('not implemented');
 }
 
