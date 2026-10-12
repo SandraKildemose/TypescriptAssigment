@@ -75,10 +75,11 @@ export function awaitingGrades(): string[] {
   const studentenrolment = enrolments.filter(e => e.grade === null);
   const studentName = studentenrolment.map(e => {
   const student = students.find(s=> s.id === e.studentId)
-  return student?.name; //spørgsmåltegn er hvis den studerende ikke fidnes, så kommer der ikek fejl.
-}
-
-
+  return student?.name; //spørgsmåltegn er hvis den studerende ikke fidnes, så kommer der ikke fejl.
+  });
+  const filteredNames = studentName.filter(s => s !== undefined);
+  const uniqueNames = [...new Set(filteredNames)]; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
+  return uniqueNames.sort(); //fået hjælp af AI her i denne linje, og ikke ændret svaret.
 
 
   }
