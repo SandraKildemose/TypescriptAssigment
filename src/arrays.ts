@@ -106,9 +106,12 @@ export function awaitingGrades(): string[] {
  * The style may only be one of two strings. Try passing 'medium' and read
  * the error the compiler gives you.
  */
-export function formatterFor(style: 'short' | 'long'): (student: Student) => string {
-  // TODO
-  throw new Error('not implemented');
+export function formatterFor(FormatStyle: 'short' | 'long'): (student: Student) => string {
+  if (FormatStyle === 'short') {
+    return (student: Student) => student.name;
+  }
+  return (student: Student) => `${student.name} (${student.deptName}), ${student.totCred} credits`;
+
 }
 
 // --- A5. Changing nothing -------------------------------------------------
