@@ -61,7 +61,7 @@ export function averageGrade(studentId: string): number {
 
     if (result.length === 0) return 0;
     const average = sum / result.length;
-    return Math.round(average * 10) / 10; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
+    return Math.round(average * 10) / 10; //Got help from AI here at this line, did not change the line after getting help.
 }
 
 // --- A3. Who is missing a grade ------------------------------------------
@@ -74,12 +74,12 @@ export function awaitingGrades(): string[] {
   const studentenrolment = enrolments.filter(e => e.grade === null);
   const studentName = studentenrolment.map(e => {
   const student = students.find(s=> s.id === e.studentId)
-  return student?.name; //spørgsmåltegn er hvis den studerende ikke fidnes, så kommer der ikke fejl.
-  });
+  return student?.name; });
   const nameswithfilter = studentName.filter(s => s !== undefined);
-  const uniqueNames = [...new Set(nameswithfilter)]; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
-  return uniqueNames.sort(); //fået hjælp af AI her i denne linje, og ikke ændret svaret.
+  const uniqueNames = [...new Set(nameswithfilter)];
+  return uniqueNames.sort();
   }
+
 
 
 // --- A4. A family of formatters ------------------------------------------
@@ -114,17 +114,16 @@ export function formatterFor(style: 'short' | 'long'): (student: Student) => str
  * at all: build new objects with the three dots.
  */
 export function raiseCredits(list: Student[], deptName: string, extra: number): Student[] {
-   const result = list.map(s => {
+    const result = list.map(s => {
 
         if (s.deptName === deptName) {
-            return { ...s, totCred: s.totCred + extra }; //... bruges til at kopiere et objekt, + ekstra m
+            return { ...s, totCred: s.totCred + extra };
         }
         else {
-            return { ...s }; //ellers return den gamle version, en uændret kopi.
+            return { ...s };
         }
 
     });
 
     return result;
 }
-
