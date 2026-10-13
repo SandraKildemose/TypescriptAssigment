@@ -63,9 +63,13 @@ export function partition(list: Student[], test: Test): [Student[], Student[]] {
  * Be ready to say where the saved number lives after once has returned.
  */
 export function once(calculation: () => number): () => number {
-  // TODO
-  throw new Error('not implemented');
-}
+  let number = false;
+  let result = 0;
+  return () =>
+
+  }
+
+
 
 // --- B4. All of them ------------------------------------------------------
 
