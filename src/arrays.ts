@@ -23,15 +23,22 @@ import { Student, Enrolment, students, courses, enrolments } from './data.js';
  * join (joiner). No for loops in this file.
  */
 export function gradeReport(studentId: string): string {
-  const studentenrolment = enrolments.filter(e => e.studentId === studentId); { //laver en konstant hvor enrolments er filtreret
-    if (studentenrolment.length === 0)return "";
-    if ( => e.grade === null) { console.log ("Not awarded")} //er i tvivl med denne?? Skal den returnere eller skal den printes?
+  const studentEnrolments = enrolments.filter(
+      e => e.studentId === studentId
+  );
 
-    studentenrolment.map (e => courses.find (c => c.courseId === e.courseId)); //Anomym funktion, to paranteser, fordi der to funktioner, kalder en funktion i en funktion.
+  const lines = studentEnrolments.map(enrolment => {
+    const course = courses.find(c => c.courseId === enrolment.courseId);
+
+    const gradeText = enrolment.grade !== null
+        ? enrolment.grade
+        : "not awarded";
+
+    return `${enrolment.courseId} ${course?.title}: ${gradeText}`;
+  });
+
+  return lines.join('\n');
 }
-}
-
-
 // --- A2. Averaging --------------------------------------------------------
 
 /**
@@ -45,8 +52,24 @@ export function gradeReport(studentId: string): string {
  *     averageGrade('00128')   // 11  (12 and 10)
  */
 export function averageGrade(studentId: string): number {
-  // TODO
-  throw new Error('not implemented');
+  const gradedEnrolments = enrolments.filter(
+    enrolment => enrolment.studentId === studentId && enrolment.grade !== null
+
+  );
+
+  if (gradedEnrolments.length === 0){
+    return 0;
+}
+
+  const total = gradedEnrolments.reduce(
+      (sum, enrolment) => sum + Number(enrolment.grade),
+      0
+  );
+
+  const average = total / gradedEnrolments.length;
+
+  return Math.round(average * 10) / 10;
+
 }
 
 // --- A3. Who is missing a grade ------------------------------------------
@@ -56,8 +79,20 @@ export function averageGrade(studentId: string): number {
  * sorted alphabetically and without repeats.
  */
 export function awaitingGrades(): string[] {
-  // TODO
-  throw new Error('not implemented');
+  const ungradedEnrolment = enrolments.filter(
+      enrolment => enrolment.grade === null
+  );
+
+  const studentNames = ungradedEnrolment.map(enrolment => {
+    const student = students.find( e => e.id === enrolment.studentId)
+    return student ? student.name : '';
+  });
+
+  const validNames = studentNames.filter(name => name !== '');
+
+  const uniqueNames = [...new Set(validNames)]
+
+  return uniqueNames.sort((a, b) => a.localeCompare(b));
 }
 
 // --- A4. A family of formatters ------------------------------------------
@@ -71,9 +106,12 @@ export function awaitingGrades(): string[] {
  * The style may only be one of two strings. Try passing 'medium' and read
  * the error the compiler gives you.
  */
-export function formatterFor(style: 'short' | 'long'): (student: Student) => string {
-  // TODO
-  throw new Error('not implemented');
+export function formatterFor(FormatStyle: 'short' | 'long'): (student: Student) => string {
+  if (FormatStyle === 'short') {
+    return (student: Student) => student.name;
+  }
+  return (student: Student) => `${student.name} (${student.deptName}), ${student.totCred} credits`;
+
 }
 
 // --- A5. Changing nothing -------------------------------------------------
