@@ -17,11 +17,8 @@ export type Test = (student: Student) => boolean;
  *
  * One line is enough, once you see what has to be returned.
  */
-export function not(test: Test): Test {
-    return (student: Student) => {
-        return !test(student);
-    };
-}
+export function not(test: Test):
+Test {return (student: Student) => { return !test(student);};}
 
 // --- B2. One pass, two answers -------------------------------------------
 
