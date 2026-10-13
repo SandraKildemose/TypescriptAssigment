@@ -25,9 +25,8 @@ import { Student, Enrolment, students, courses, enrolments } from './data.js';
 export function gradeReport(studentId: string): string {
   const studentenrolment = enrolments.filter(e => e.studentId === studentId); { //laver en konstant hvor enrolments er filtreret
     if (studentenrolment.length === 0)return "";
-
-    const result = studentenrolment.map (e => {
-    const course = courses.find (c => c.courseId === e.courseId);
+  const result = studentenrolment.map (e => {
+  const course = courses.find (c => c.courseId === e.courseId);
     if (!course) {return "";}
     if (e.grade === null)
     return `${e.courseId} ${course.title}: not awarded`;
@@ -77,8 +76,8 @@ export function awaitingGrades(): string[] {
   const student = students.find(s=> s.id === e.studentId)
   return student?.name; //spørgsmåltegn er hvis den studerende ikke fidnes, så kommer der ikke fejl.
   });
-  const Nameswithfilter = studentName.filter(s => s !== undefined);
-  const uniqueNames = [...new Set(Nameswithfilter)]; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
+  const nameswithfilter = studentName.filter(s => s !== undefined);
+  const uniqueNames = [...new Set(nameswithfilter)]; //fået hjælp af AI her i denne linje, og ikke ændret svaret.
   return uniqueNames.sort(); //fået hjælp af AI her i denne linje, og ikke ændret svaret.
   }
 
