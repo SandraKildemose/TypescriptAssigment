@@ -122,6 +122,16 @@ export function formatterFor(FormatStyle: 'short' | 'long'): (student: Student) 
  * at all: build new objects with the three dots.
  */
 export function raiseCredits(list: Student[], deptName: string, extra: number): Student[] {
-  // TODO
-  throw new Error('not implemented');
+  const result = list.map(s => {
+
+    if (s.deptName === deptName) {
+      return { ...s, totCred: s.totCred + extra }; //... bruges til at kopiere et objekt, + ekstra m
+    }
+    else {
+      return { ...s }; //ellers return den gamle version, en uændret kopi.
+    }
+
+  });
+
+  return result;
 }
