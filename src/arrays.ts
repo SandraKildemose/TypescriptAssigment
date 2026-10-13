@@ -59,7 +59,7 @@ export function averageGrade(studentId: string): number {
 
   if (gradedEnrolments.length === 0){
     return 0;
-  }
+}
 
   const total = gradedEnrolments.reduce(
       (sum, enrolment) => sum + Number(enrolment.grade),
