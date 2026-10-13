@@ -23,12 +23,29 @@ import { Student, Enrolment, students, courses, enrolments } from './data.js';
  * join (joiner). No for loops in this file.
  */
 export function gradeReport(studentId: string): string {
-  const studentenrolment = enrolments.filter(e => e.studentId === studentId); { //laver en konstant hvor enrolments er filtreret
-    if (studentenrolment.length === 0)return "";
-    if ( => e.grade === null) { console.log ("Not awarded")} //er i tvivl med denne?? Skal den returnere eller skal den printes?
 
-    studentenrolment.map (e => courses.find (c => c.courseId === e.courseId)); //Anomym funktion, to paranteser, fordi der to funktioner, kalder en funktion i en funktion.
-}
+  const studentEnrollment =
+      enrolments.filter(enrolment => enrolment.studentId === studentId);
+  //studentEnrollment er vores array som vi forventer at indsætte det endelige resultat i.
+  //enrolments er vores dataset, vi anvender et filter til det sæt, som er en korter måde at lave et loop på.
+  // derefter laver vi en midlertidlig veriable kalde "Enrolment" og ved hjælp af "=>" gør det til en funktion.
+  if (studentEnrollment.length === 0) {
+    return "";
+  }
+  // Her siger vi "hvis vores array studentEnrollment ikke finder noget, så retunere ingen ting" .length er en
+  // numerisk måde at tjekke hvor mange items der er
+  const lines = studentEnrollment.map(enrolment => {
+    const course = courses.find(
+        course => course.courseId === enrolment.courseId)
+
+    const gradeText =
+        enrolment.grade === null ? "not awarded" : enrolment.grade;
+
+    return `${enrolment.courseId} ${course?.title}: ${gradeText}`;
+  });
+
+  return lines.join("\n");
+
 }
 
 
@@ -45,8 +62,28 @@ export function gradeReport(studentId: string): string {
  *     averageGrade('00128')   // 11  (12 and 10)
  */
 export function averageGrade(studentId: string): number {
-  // TODO
-  throw new Error('not implemented');
+const avgGrade = enrolments.filter(enrollment => enrollment.studentId === studentId);
+
+  const awardedGrades = avgGrade.filter(
+      enrolment => enrolment.grade !== null);
+
+  if (awardedGrades.length === 0) {
+    return 0;
+  }
+
+  const stringNumb = awardedGrades.map(enrolment => {
+        return Number(enrolment.grade)
+      });
+
+  const total = stringNumb.reduce((sum,grade) => {
+    return sum + grade;
+  },0);
+
+  const average = total / stringNumb.length;
+  const roundedAverage = Math.round(average * 10) / 10;
+
+
+  return roundedAverage;
 }
 
 // --- A3. Who is missing a grade ------------------------------------------
@@ -56,8 +93,11 @@ export function averageGrade(studentId: string): number {
  * sorted alphabetically and without repeats.
  */
 export function awaitingGrades(): string[] {
-  // TODO
-  throw new Error('not implemented');
+
+  const awaitGrades = enrolments.filter(enrolment => enrolment.grade === null);
+
+  const studentIds = awaitGrades.map(enrolment => enrolment.studentId);
+
 }
 
 // --- A4. A family of formatters ------------------------------------------
