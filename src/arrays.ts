@@ -115,8 +115,7 @@ export function formatterFor(style: 'short' | 'long'): (student: Student) => str
  * at all: build new objects with the three dots.
  */
 export function raiseCredits(list: Student[], deptName: string, extra: number): Student[] {
-
-    const result = list.map(s => {
+   const result = list.map(s => {
 
         if (s.deptName === deptName) {
             return { ...s, totCred: s.totCred + extra }; //... bruges til at kopiere et objekt, + ekstra m
