@@ -32,9 +32,20 @@ Test {return (student: Student) => { return !test(student);};}
  * caller can take them apart by position.
  */
 export function partition(list: Student[], test: Test): [Student[], Student[]] {
-  // TODO
-  throw new Error('not implemented');
+  return list.reduce((acc, student) => {
+
+        if (test(student)) {
+            acc[0].push(student);
+        }
+        else {
+            acc[1].push(student);
+        }
+
+        return acc;
+
+    }, [[], []] as [Student[], Student[]]);
 }
+
 
 // --- B3. Do it once -------------------------------------------------------
 
