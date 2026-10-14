@@ -23,7 +23,7 @@ console.log(students.length + ' students');
  console.log(awaitingGrades());                  // [ 'Tanaka' ]
  console.log(formatterFor('short')(students[0])); // Zhang
  console.log(formatterFor('long')(students[0]));  // Zhang (Comp. Sci.), 102 credits
-// const raised = raiseCredits(students, 'Physics', 10);
+ const raised = raiseCredits(students, 'Physics', 10);
 // console.log(raised[4].totCred);                 // 66  (Peltier, was 56)
 // console.log(students[4].totCred);               // 56  (unchanged)
 // console.log(raised[0].totCred);                 // 102 (Zhang, not Physics)

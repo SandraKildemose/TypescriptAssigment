@@ -139,18 +139,21 @@ export function awaitingGrades(): string[] {
  * The style may only be one of two strings. Try passing 'medium' and read
  * the error the compiler gives you.
  */
+// Husk dette er en higher-order function fordi den retuner en anden funtion som output.
 export function formatterFor(style: 'short' | 'long'): (student: Student) => string {
-
+// Her er der to måder denne funktion kan opføre sig på. man kan inputte "short" eller "long" vi definer hvad disse to mugliheder gør
+  //inden i funktionen, derefter siger funktionen at vores yder funktion anvender vi ti at få fat på ønsket resultat "(student: Student) => string
   if (style === 'short') {
     return (student: Student) => {
       return student.name;
     };
   }
-
+  //Nu siger vi at hvis inputter er short så skal den ydre funktion kun retunere student.name, så dette er student: student funktionens opførelse.
   return (student: Student) => {
     return `${student.name} (${student.deptName}), ${student.totCred} credits`;
   };
-
+  //Dette er samme princip som short, men fordi "short" enten er sandt eller falsk så behøver vi ikke at definere "long" her, vi kan
+  // bare sige hvad vi ønsker funktioner gør i tilfælde af false.
 }
 
 // --- A5. Changing nothing -------------------------------------------------
@@ -161,6 +164,7 @@ export function formatterFor(style: 'short' | 'long'): (student: Student) => str
  * at all: build new objects with the three dots.
  */
 export function raiseCredits(list: Student[], deptName: string, extra: number): Student[] {
-  // TODO
-  throw new Error('not implemented');
+
+
+
 }
