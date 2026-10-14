@@ -90,9 +90,9 @@ export function once(calculation: () => number): () => number {
  * With no tests at all, everything passes: there is nothing to fail.
  */
 export function allOf(...tests: Test[]): Test {
-  // TODO
-  throw new Error('not implemented');
+    return (value: any) => tests.every(test => test(value));
 }
+
 
 // Two small helpers to build tests with, given to you.
 export const inDepartment = (deptName: string): Test =>
