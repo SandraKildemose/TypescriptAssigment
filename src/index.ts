@@ -39,6 +39,6 @@ import { not, partition, once, allOf, inDepartment, atLeast } from './functions.
 // many times the calculation actually ran.
 // let calls = 0;
 // const count = once(() => { calls++; return students.length; });
-// console.log(count(), count(), calls);            // 13 13 1
-// console.log(students.filter(allOf(inCs, atLeast(60))).length);   // 1
-// console.log(students.filter(allOf()).length);    // 13
+//console.log(count(), count(), calls);            // 13 13 1
+//console.log(students.filter(allOf(inCs, atLeast(60))).length);   // 1
+console.log(students.filter(allOf()).length);    // 13
