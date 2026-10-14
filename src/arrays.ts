@@ -94,10 +94,38 @@ const avgGrade = enrolments.filter(enrollment => enrollment.studentId === studen
  */
 export function awaitingGrades(): string[] {
 
-  const awaitGrades = enrolments.filter(enrolment => enrolment.grade === null);
+  const awaitGrades = enrolments.filter(
+      enrolment => enrolment.grade === null);
+  // Her skaber vi et array der hedder awaitGrades, dette array anvender datasættet enrolments hvor vi
+  // .filter efter studerende der ikke har en karakter. Dette betyder vi kun får rows med studerende er ikke har en karakter aka grade.
+  const studentIds: string[] = awaitGrades.map(
+      enrolment => enrolment.studentId
+  );
+// Her skaber vi et array kaldt studentids som anvender .map på vores tidligere array "awaitGrades" hvor vi ændre den data som befinder sig inde
+// i "awaitGrades" her siger vi at vi kun ønsker visuelt at få studentId vist når vi søger efter en studerende med en karakter der er NULL
+  const studentNames = studentIds.map(studentId => {
+    const student: Student | undefined = students.find(
+        student => student.id === studentId
+    );
+// Her forsøger vi at sætte "enrollments" datasættet sammen med "students" datasættet. Vi laver et array kaldt studentNames som anvender .map til
+    // at ændre eksisterende data inde i "studentIds" array. Formålet er at bruge id'et fra "enrollments" til at finde tilsvarende id fra "students"
+      // hvor vi derefter så kan kalde på navnet fra "students" for at kunne kende vores studerende ved navn.
+    return student?.name;
 
-  const studentIds = awaitGrades.map(enrolment => enrolment.studentId);
+  });
 
+  const validNames = studentNames.filter(
+      name => name !== undefined
+  );
+// Vi lover i funktionen at retunere string, idet vi har sagt i "studentNames" arry undifiend, så kan return ikke lig det, fordi vi lover
+  // at give den en string, så den brokker sig fordi der er en chance for at undefiend forkommer. denne const sørger for at hvis undefiend forkommer
+  // så fjeren vi den fra arrayet
+  const uniqueNames = new Set(validNames);
+// Her sørger vi for at der kun kan forekomme en unik værdi så et navn ikke oppper op to gange, derefter omdanner vi "uniqueNames" til et array.
+  // og til sidst så sotere i abc
+  const uniqueNamesArray = Array.from(uniqueNames);
+
+  return uniqueNamesArray.sort();
 }
 
 // --- A4. A family of formatters ------------------------------------------
@@ -112,8 +140,17 @@ export function awaitingGrades(): string[] {
  * the error the compiler gives you.
  */
 export function formatterFor(style: 'short' | 'long'): (student: Student) => string {
-  // TODO
-  throw new Error('not implemented');
+
+  if (style === 'short') {
+    return (student: Student) => {
+      return student.name;
+    };
+  }
+
+  return (student: Student) => {
+    return `${student.name} (${student.deptName}), ${student.totCred} credits`;
+  };
+
 }
 
 // --- A5. Changing nothing -------------------------------------------------

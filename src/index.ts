@@ -21,8 +21,8 @@ console.log(students.length + ' students');
  console.log(averageGrade('98988'));             // 12  (the null does not count)
  console.log(averageGrade('70557'));             // 0
  console.log(awaitingGrades());                  // [ 'Tanaka' ]
-// console.log(formatterFor('short')(students[0])); // Zhang
-// console.log(formatterFor('long')(students[0]));  // Zhang (Comp. Sci.), 102 credits
+ console.log(formatterFor('short')(students[0])); // Zhang
+ console.log(formatterFor('long')(students[0]));  // Zhang (Comp. Sci.), 102 credits
 // const raised = raiseCredits(students, 'Physics', 10);
 // console.log(raised[4].totCred);                 // 66  (Peltier, was 56)
 // console.log(students[4].totCred);               // 56  (unchanged)
