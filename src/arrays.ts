@@ -164,7 +164,19 @@ export function formatterFor(style: 'short' | 'long'): (student: Student) => str
  * at all: build new objects with the three dots.
  */
 export function raiseCredits(list: Student[], deptName: string, extra: number): Student[] {
+  // Så denne funktion har tre inputs. det første input giver information omkring hvilke datasæt vi arbedjer med hvilke er students. derefter deptName og credits.
+  return list.map(student => {
+// Vi siger at vores student array skal fremvises anderledes ved hjælp af .map, vi siger at vi ønsker kun den studerende der matcher et deptName vi har indsat.
+    // derefter ønsker vi at tage alt information fra student array og laver et nyt student array ved hjælp af "...student" derefter siger vi at
+    // totCred skal + i inputfeltet "extra"
+    if (student.deptName === deptName) {
+      return {
+        ...student,
+        totCred: student.totCred + extra
+      };
+    }
 
-
+    return student;
+  });
 
 }
