@@ -125,10 +125,10 @@ export function raiseCredits(list: Student[], deptName: string, extra: number): 
   const result = list.map(s => {
 
     if (s.deptName === deptName) {
-      return { ...s, totCred: s.totCred + extra }; //... bruges til at kopiere et objekt, + ekstra m
+      return { ...s, totCred: s.totCred + extra };
     }
     else {
-      return { ...s }; //ellers return den gamle version, en uændret kopi.
+      return { ...s };
     }
 
   });
